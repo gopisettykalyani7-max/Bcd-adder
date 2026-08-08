@@ -1,0 +1,29 @@
+module bcd_adder (
+    input  [3:0] A,
+    input  [3:0] B,
+    input  Cin,
+    output reg [3:0] Sum,
+    output reg Cout
+);
+
+reg [4:0] temp;
+
+always @(*) begin
+
+    // First binary addition
+    temp = A + B + Cin;
+
+    // BCD correction
+    if (temp > 5'd9) begin
+        temp = temp + 5'd6;
+        Cout = 1'b1;
+    end
+    else begin
+        Cout = 1'b0;
+    end
+
+    Sum = temp[3:0];
+
+end
+
+endmodule
